@@ -1,0 +1,21 @@
+services:
+  relay-demo:
+    build: .
+    environment:
+      PORT: "4300"
+      HOST: 0.0.0.0
+      DB_PATH: /app/data/relay.sqlite
+      DEMO_MODE: "true"
+      PUBLIC_BASE_URL: http://127.0.0.1:4300
+      ALLOWED_DESTINATION_HOSTS: example.com
+    ports:
+      - "127.0.0.1:4300:4300"
+    volumes:
+      - relay_demo_data:/app/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4300/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+volumes:
+  relay_demo_data:

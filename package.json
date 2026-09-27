@@ -1,0 +1,12 @@
+{
+  "name": "relay-ad-network",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=26" },
+  "scripts": {
+    "start": "node apps/api/server.mjs",
+    "dev": "node --watch apps/api/server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check apps/api/server.mjs && node --check apps/api/db.mjs && node --check packages/domain/core.mjs && node --check packages/integrations/messaging.mjs && node --check apps/web/app.js"
+  }
+}
